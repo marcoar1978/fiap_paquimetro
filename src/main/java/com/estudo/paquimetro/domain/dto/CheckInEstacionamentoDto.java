@@ -1,17 +1,22 @@
 package com.estudo.paquimetro.domain.dto;
 
 import com.estudo.paquimetro.domain.model.CheckInEstacionamento;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Getter
 public class CheckInEstacionamentoDto {
 
     private Long numeroTycket;
+    @Pattern(regexp = "[A-Z]{3}[0-9]{4}", message = "placa inválida")
     private String placa;
+    @Min(value=0, message = "Não pode inserir quantidade de horas negativas" )
+    @Max(value=8, message = "Limite é de 8 horas")
     private Integer qdeHoras;
     private LocalDateTime entrada;
     private LocalDateTime saida;
