@@ -1,4 +1,4 @@
-package com.estudo.paquimetro.infra;
+package br.com.fiap.parquimetro.shared.infra;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;

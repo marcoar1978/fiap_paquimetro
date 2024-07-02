@@ -1,13 +1,13 @@
-package com.estudo.paquimetro;
+package br.com.fiap.parquimetro;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class PaquimetroApplication {
+public class ParquimetroApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PaquimetroApplication.class, args);
+		SpringApplication.run(ParquimetroApplication.class, args);
 	}
 
 }

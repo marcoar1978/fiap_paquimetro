@@ -1,7 +1,7 @@
-package com.estudo.paquimetro.controller;
+package br.com.fiap.parquimetro.estacionamento.api.controllers;
 
-import com.estudo.paquimetro.domain.dto.CheckInEstacionamentoDto;
-import com.estudo.paquimetro.service.EstacionamentoService;
+import br.com.fiap.parquimetro.estacionamento.api.controllers.dto.CheckInEstacionamentoDto;
+import br.com.fiap.parquimetro.estacionamento.application.services.EstacionamentoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
