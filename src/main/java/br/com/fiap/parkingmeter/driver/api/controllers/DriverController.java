@@ -6,6 +6,7 @@ import br.com.fiap.parkingmeter.driver.application.services.dto.SaveDriverDto;
 import br.com.fiap.parkingmeter.driver.application.services.dto.VehicleDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,14 +22,14 @@ public class DriverController {
 
     @PostMapping
     @Operation(summary = "Create a new driver", description = "Creates a new driver with the given details.")
-    public long createDriver(@RequestBody SaveDriverDto dto) {
+    public long createDriver(@RequestBody @Valid SaveDriverDto dto) {
         return driverService.createDriver(dto);
     }
 
     @PutMapping("/{driverId}")
     @Operation(summary = "Update an existing driver", description = "Updates the details of an existing driver.")
     public void updateDriver(@PathVariable long driverId,
-                             @RequestBody SaveDriverDto dto) {
+                             @RequestBody @Valid SaveDriverDto dto) {
         driverService.updateDriver(driverId, dto);
     }
 
@@ -47,7 +48,7 @@ public class DriverController {
     @PostMapping("/{driverId}/vehicle")
     @Operation(summary = "Add a vehicle to a driver", description = "Adds a vehicle to the driver with the given ID.")
     public void addVehicle(@PathVariable long driverId,
-                           @RequestBody VehicleDto dto){
+                           @RequestBody @Valid VehicleDto dto){
         driverService.addVehicle(driverId, dto);
     }
 
