@@ -9,10 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import br.com.fiap.parkingmeter.parking.application.services.dto.TicketPreDTO;
 
 @RestController
 @Tag(name = "Parking", description = "API for parking operations")
-@RequestMapping("/estacionamento")
+@RequestMapping("/parking")
 public class ParkingController {
 
     @Autowired
@@ -20,9 +21,9 @@ public class ParkingController {
 
     @PostMapping("/checkIn")
     @Operation(summary = "Parking check-in", description = "Performs a check-in at a parking lot with the provided details.")
-    public ResponseEntity<CheckInParkingDto> checkIn(@RequestBody @Valid CheckInParkingDto dto){
-        var ret = service.checkIn(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(ret);
+    public ResponseEntity<TicketPreDTO> checkIn(@RequestBody @Valid CheckInParkingDto dto){
+        var ret = service.registerParking(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(new TicketPreDTO(ret));
     }
 
 }

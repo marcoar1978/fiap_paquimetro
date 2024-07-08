@@ -22,7 +22,7 @@ public class DriverDto {
     private String postalCode;
     private String phoneNumber;
     private String email;
-    private List<VehicleDto> vehicles;
+    //private List<VehicleDto> vehicles;
 
     public DriverDto(Driver driver) {
         this.id = driver.getId();
@@ -37,6 +37,6 @@ public class DriverDto {
         this.postalCode = driver.getAddress().getPostalCode();
         this.phoneNumber = driver.getPhoneNumber();
         this.email = driver.getEmail();
-        this.vehicles = VehicleDto.toList(driver.getVehicles());
+        //this.vehicles = VehicleDto.toList(driver.getVehicles());
     }
 }

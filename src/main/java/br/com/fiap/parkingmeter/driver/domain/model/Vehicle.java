@@ -16,6 +16,10 @@ public class Vehicle {
     @Column(name = "license_plate")
     private String licensePlate;
 
+    @ManyToOne
+    @JoinColumn(name = "driver_id")
+    Driver driver;
+
     public Vehicle(String model, String licensePlate) {
         this.model = model;
         this.licensePlate = licensePlate;

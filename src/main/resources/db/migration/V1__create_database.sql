@@ -19,7 +19,10 @@ create table vehicle
     id serial not null,
     model varchar(30) not null,
     license_plate varchar(10) not null,
-    constraint vehicle_pk primary key (id)
+    driver_id int not null,
+    constraint vehicle_pk primary key (id),
+    FOREIGN KEY (driver_id) REFERENCES driver(id)
+
 );
 
 

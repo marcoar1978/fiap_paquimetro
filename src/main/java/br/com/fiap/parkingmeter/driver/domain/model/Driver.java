@@ -20,7 +20,7 @@ public class Driver {
     private Address address;
     private String phoneNumber;
     private String email;
-    @OneToMany
+    @OneToMany(mappedBy = "driver")
     private List<Vehicle> vehicles;
 
     public Driver(String name, String cpf, Address address, String phoneNumber, String email) {

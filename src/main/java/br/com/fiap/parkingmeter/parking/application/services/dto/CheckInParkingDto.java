@@ -13,25 +13,23 @@ import java.time.LocalDateTime;
 @Getter
 public class CheckInParkingDto {
 
-    private ParkingType tipo;
+    private ParkingType type;
     @Pattern(regexp = "[A-Z]{3}[0-9]{4}", message = "placa inválida")
-    private String placa;
+    private String licensePlate;
     @Min(value=0, message = "Não pode inserir quantidade de horas negativas" )
-    @Max(value=8, message = "Limite é de 8 horas")
-    private Integer qdeHoras;
-    private LocalDateTime entrada;
-    private LocalDateTime saida;
-    private BigDecimal valor;
+    @Max(value=480, message = "Limite é de 8 horas")
+    private Long timeMinutes;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
+    private BigDecimal value;
+    private Long driverId;
+    private Long vehicleId;
+
 
     public CheckInParkingDto() {}
 
-    public CheckInParkingDto(Parking checkInEstacionamento) {
-//        this.numeroTycket = checkInEstacionamento.getNumeroTicket();
-//        this.placa = checkInEstacionamento.getPlaca();
-//        this.qdeHoras = checkInEstacionamento.getHoras();
-//        this.entrada = checkInEstacionamento.getEntrada();
-//        this.saida = checkInEstacionamento.getSaida();
-//        this.valor = checkInEstacionamento.getValor();
+    public CheckInParkingDto(Parking parking) {
+
     }
 
 //    public Estacionamento toEntity(){
