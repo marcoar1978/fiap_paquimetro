@@ -30,17 +30,10 @@ public class ParkingService {
     public Parking registerParking(CheckInParkingDto dto) {
         Driver driver = this.driverRepository.findById(dto.getDriverId()).orElseThrow(() -> new RuntimeException("Driver not found"));
         Vehicle vehicle = this.vehicleRepository.findById(dto.getVehicleId()).orElseThrow(() -> new RuntimeException("Vehicle not found"));
-        LocalDateTime startTime = LocalDateTime.now();
-        LocalDateTime endTime = startTime.plusMinutes(dto.getTimeMinutes());
-        System.out.println(dto.getTimeMinutes());
-
-
-        Double valor = (dto.getTimeMinutes()/60.0) * VALOR_POR_HORA;
 
         Parking parking = new Parking(dto.getType(),
-                startTime,
-                endTime,
-                valor,
+                dto.getTimeMinutes(),
+                VALOR_POR_HORA,
                 driver,
                 vehicle);
 

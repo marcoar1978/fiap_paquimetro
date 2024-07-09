@@ -35,14 +35,22 @@ public class Parking {
     @JoinColumn(name = "vehicle_id")
     private Vehicle vehicle;
 
-    public Parking(ParkingType type, LocalDateTime startTime, LocalDateTime endTime, Double value, Driver driver, Vehicle vehicle) {
+    public Parking(ParkingType type, Long minutes, Double hourValue, Driver driver, Vehicle vehicle) {
+
         this.ticketNumber = UUID.randomUUID();
         this.type = type;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.value = value;
-        this.driver = driver;
+        this.startTime = LocalDateTime.now();
         this.vehicle = vehicle;
+        this.driver = driver;
+        if(this.type == ParkingType.PRE){
+
+            this.endTime = this.startTime.plusMinutes(minutes);
+            this.value = (minutes/60.0) * hourValue;
+
+        }
+
+
+
     }
 //
 //    public Parking(ParkingType tipo, int minutos, double valorMinuto,
