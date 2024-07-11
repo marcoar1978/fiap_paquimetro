@@ -35,6 +35,8 @@ public class Parking {
     @JoinColumn(name = "vehicle_id")
     private Vehicle vehicle;
 
+    //Status
+
     public Parking(ParkingType type, Long minutes, Double hourValue, Driver driver, Vehicle vehicle) {
 
         this.ticketNumber = UUID.randomUUID();
@@ -47,6 +49,9 @@ public class Parking {
             this.endTime = this.startTime.plusMinutes(minutes);
             this.value = (minutes/60.0) * hourValue;
 
+        }
+        else{
+            this.endTime = this.startTime.plusMinutes(60);
         }
 
 

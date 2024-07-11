@@ -21,6 +21,8 @@ public class ParkingService {
     private final Double VALOR_POR_HORA = 2.0;
 
 
+    //alterar o tempo por hora.
+
     public ParkingService(ParkingRepository repository, DriverRepository driverRepository, VehicleRepository vehicleRepository) {
         this.repository = repository;
         this.driverRepository = driverRepository;
@@ -37,10 +39,27 @@ public class ParkingService {
                 driver,
                 vehicle);
 
+        //PRE: pendente de pagamento -> confirmado
+        //POS: iniciado -> pendente de pagamento -> confirmado
 
         return repository.save(parking);
 
     }
+
+
+    // public --- confirmParking(----){
+    // o cliente escolhe a forma de pagamento
+    //  mudança de status do parking para confirmado}
+
+
+
+
+    // public --- encerrarParkingPOS(----){
+    //  mudança de status do parking para valor e muda o status para pendente de pagamento }
+
+
+
+
 
     public void checkOut() {
 
