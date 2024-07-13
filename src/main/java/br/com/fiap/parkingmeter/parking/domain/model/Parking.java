@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 @Getter
@@ -27,6 +28,10 @@ public class Parking {
     @Column(name = "endtime")
     private LocalDateTime endTime;
     private Double value;
+
+    @Enumerated(EnumType.STRING)
+    private ParkingStatus status;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "driver_id")
     private Driver driver;
@@ -35,9 +40,7 @@ public class Parking {
     @JoinColumn(name = "vehicle_id")
     private Vehicle vehicle;
 
-    //Status
-
-    public Parking(ParkingType type, Long minutes, Double hourValue, Driver driver, Vehicle vehicle) {
+    public Parking(ParkingType type, Long time, Double hourValue, Driver driver, Vehicle vehicle) {
 
         this.ticketNumber = UUID.randomUUID();
         this.type = type;
@@ -46,29 +49,28 @@ public class Parking {
         this.driver = driver;
         if(this.type == ParkingType.PRE){
 
-            this.endTime = this.startTime.plusMinutes(minutes);
-            this.value = (minutes/60.0) * hourValue;
+            this.endTime = this.startTime.plusHours(time);
+            this.value = time * hourValue;
+            this.status = ParkingStatus.PENDENT_PAYMENT;
 
         }
         else{
             this.endTime = this.startTime.plusMinutes(60);
+            this.status = ParkingStatus.STARTED;
         }
+     }
 
+    public  void updateStatus(ParkingStatus parkingStatus){
+        this.status = parkingStatus;
+    }
 
+    public void updateValue(Double hourValue){
+        Long hours = ChronoUnit.HOURS.between(this.getStartTime(), this.getEndTime());
+        this.value = hours * hourValue;
+    }
+
+    public void plusHour(){
+        this.endTime = this.endTime.plusHours(1);
 
     }
-//
-//    public Parking(ParkingType tipo, int minutos, double valorMinuto,
-//                   String placaVeiculo, CarDriver condutor) {
-//        this.tipo = tipo;
-//        this.entrada = LocalDateTime.now();
-//        this.placaVeiculo = placaVeiculo;
-//        this.condutor = condutor;
-//
-//        if (tipo == ParkingType.PRE) {
-//            this.saida = this.entrada.plusMinutes(minutos);
-//            this.valor = minutos * valorMinuto;
-//        }
-//    }
-
 }

@@ -18,7 +18,7 @@ public class CheckInParkingDto {
     private String licensePlate;
     @Min(value=0, message = "Não pode inserir quantidade de horas negativas" )
     @Max(value=480, message = "Limite é de 8 horas")
-    private Long timeMinutes;
+    private Long time;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private BigDecimal value;
