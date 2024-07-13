@@ -13,7 +13,7 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI customOpenApi() {
 
-        OpenAPI openAPI = new OpenAPI()
+        return new OpenAPI()
                 .components(new Components())
                 .info(new Info()
                         .title("API Parking Meter - FIAP")
@@ -22,7 +22,5 @@ public class SwaggerConfig {
                         .contact(new Contact()
                                 .name("FIAP - Pós Tech")
                                 .url("https://on.fiap.com.br/")));
-
-        return openAPI;
     }
 }
