@@ -1,7 +1,7 @@
 package br.com.fiap.parkingmeter.parking.api.controllers;
 
-import br.com.fiap.parkingmeter.parking.application.services.dto.CheckInParkingDto;
 import br.com.fiap.parkingmeter.parking.application.services.ParkingService;
+import br.com.fiap.parkingmeter.parking.application.services.dto.CheckInParkingDto;
 import br.com.fiap.parkingmeter.parking.application.services.dto.ConfirmPaymentDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
