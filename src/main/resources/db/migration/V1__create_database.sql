@@ -5,7 +5,7 @@ create table driver
     cpf varchar(11) not null,
     street varchar(60) not null,
     number varchar(10) not null,
-    complement varchar(60) not null,
+    complement varchar(60),
     district varchar(30) not null,
     city varchar(30) not null,
     state varchar(2) not null,

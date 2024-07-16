@@ -1,9 +1,7 @@
 package br.com.fiap.parkingmeter.driver.application.services.dto;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import br.com.fiap.parkingmeter.parking.domain.model.PaymentMethod;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 
 
@@ -47,5 +45,8 @@ public class SaveDriverDto {
     @NotBlank(message = "Email is mandatory")
     @Email(message = "Email should be valid")
     private String email;
+
+    @NotNull(message = "Payment Method is mandatory")
+    private PaymentMethod paymentMethod;
 
 }

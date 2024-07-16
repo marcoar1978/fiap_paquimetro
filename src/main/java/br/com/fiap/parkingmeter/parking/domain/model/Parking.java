@@ -32,6 +32,12 @@ public class Parking {
     @Enumerated(EnumType.STRING)
     private ParkingStatus status;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "payment_method")
+    private PaymentMethod paymentMethod;
+    @Column(name = "payment_auth")
+    private String paymentAuth;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "driver_id")
     private Driver driver;
@@ -41,36 +47,35 @@ public class Parking {
     private Vehicle vehicle;
 
     public Parking(ParkingType type, Long time, Double hourValue, Driver driver, Vehicle vehicle) {
-
         this.ticketNumber = UUID.randomUUID();
         this.type = type;
         this.startTime = LocalDateTime.now();
         this.vehicle = vehicle;
         this.driver = driver;
-        if(this.type == ParkingType.PRE){
+        this.paymentMethod = driver.getPaymentMethod();
 
+        if (this.type == ParkingType.PRE) {
             this.endTime = this.startTime.plusHours(time);
             this.value = time * hourValue;
             this.status = ParkingStatus.PENDENT_PAYMENT;
-
-        }
-        else{
-            this.endTime = this.startTime.plusMinutes(60);
+        } else {
+            if (this.driver.getPaymentMethod() == PaymentMethod.PIX) {
+                throw new RuntimeException("Pix is not allowed for POS mode");
+            }
+            this.endTime = this.startTime.plusHours(1);
             this.status = ParkingStatus.STARTED;
         }
-     }
-
-    public  void updateStatus(ParkingStatus parkingStatus){
-        this.status = parkingStatus;
     }
 
-    public void updateValue(Double hourValue){
-        Long hours = ChronoUnit.HOURS.between(this.getStartTime(), this.getEndTime());
+    public void close(Double hourValue) {
+        this.endTime = LocalDateTime.now();
+        Long hours = ChronoUnit.HOURS.between(this.startTime, this.endTime);
         this.value = hours * hourValue;
     }
 
-    public void plusHour(){
-        this.endTime = this.endTime.plusHours(1);
-
+    public void confirmPayment(String paymentAuth) {
+        this.paymentAuth = paymentAuth;
+        this.status = ParkingStatus.CONFIRMED;
     }
+
 }

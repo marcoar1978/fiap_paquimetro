@@ -1,6 +1,7 @@
 package br.com.fiap.parkingmeter.driver.api.controllers;
 
 import br.com.fiap.parkingmeter.driver.application.services.DriverService;
+import br.com.fiap.parkingmeter.driver.application.services.dto.CreateVehicleDto;
 import br.com.fiap.parkingmeter.driver.application.services.dto.DriverDto;
 import br.com.fiap.parkingmeter.driver.application.services.dto.SaveDriverDto;
 import br.com.fiap.parkingmeter.driver.application.services.dto.VehicleDto;
@@ -22,15 +23,15 @@ public class DriverController {
 
     @PostMapping
     @Operation(summary = "Create a new driver", description = "Creates a new driver with the given details.")
-    public long createDriver(@RequestBody @Valid SaveDriverDto dto) {
-        return driverService.createDriver(dto);
+    public DriverDto createDriver(@RequestBody @Valid SaveDriverDto dto) {
+        return new DriverDto(driverService.createDriver(dto));
     }
 
     @PutMapping("/{driverId}")
     @Operation(summary = "Update an existing driver", description = "Updates the details of an existing driver.")
-    public void updateDriver(@PathVariable long driverId,
-                             @RequestBody @Valid SaveDriverDto dto) {
-        driverService.updateDriver(driverId, dto);
+    public DriverDto updateDriver(@PathVariable long driverId,
+                                  @RequestBody @Valid SaveDriverDto dto) {
+        return new DriverDto(driverService.updateDriver(driverId, dto));
     }
 
     @DeleteMapping("/{driverId}")
@@ -47,14 +48,14 @@ public class DriverController {
 
     @PostMapping("/{driverId}/vehicle")
     @Operation(summary = "Add a vehicle to a driver", description = "Adds a vehicle to the driver with the given ID.")
-    public void addVehicle(@PathVariable long driverId,
-                           @RequestBody @Valid VehicleDto dto){
-        driverService.addVehicle(driverId, dto);
+    public VehicleDto addVehicle(@PathVariable long driverId,
+                                 @RequestBody @Valid CreateVehicleDto dto) {
+        return new VehicleDto(driverService.addVehicle(driverId, dto));
     }
 
     @DeleteMapping("/{driverId}/vehicle/{vehicleId}")
     @Operation(summary = "Delete a vehicle from a driver", description = "Deletes the vehicle with the given ID from the driver with the given ID.")
-    public void deleteVehicle(long driverId, long vehicleId){
+    public void deleteVehicle(long driverId, long vehicleId) {
         driverService.deleteVehicle(driverId, vehicleId);
     }
 

@@ -1,4 +1,4 @@
-package br.com.fiap.parkingmeter.parking.application.services.dto;
+package br.com.fiap.parkingmeter.parking.infrastructure.payment_gateway;
 
 import br.com.fiap.parkingmeter.parking.domain.model.PaymentMethod;
 import lombok.AllArgsConstructor;
@@ -8,11 +8,10 @@ import java.util.UUID;
 
 @Getter
 @AllArgsConstructor
-public class ConfirmPaymentDto {
+public class AuthorizePaymentDto {
 
-
-    private UUID parkingId;
-
+    private UUID ticketNumber;
+    private double value;
     private PaymentMethod paymentMethod;
 
 }

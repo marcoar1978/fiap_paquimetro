@@ -22,7 +22,8 @@ public class DriverDto {
     private String postalCode;
     private String phoneNumber;
     private String email;
-    //private List<VehicleDto> vehicles;
+    private String paymentMethod;
+    private List<VehicleDto> vehicles;
 
     public DriverDto(Driver driver) {
         this.id = driver.getId();
@@ -37,6 +38,8 @@ public class DriverDto {
         this.postalCode = driver.getAddress().getPostalCode();
         this.phoneNumber = driver.getPhoneNumber();
         this.email = driver.getEmail();
-        //this.vehicles = VehicleDto.toList(driver.getVehicles());
+        this.paymentMethod = driver.getPaymentMethod().toString();
+        this.vehicles = VehicleDto.toList(driver.getVehicles());
     }
+
 }

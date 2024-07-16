@@ -16,13 +16,14 @@ public class Vehicle {
     @Column(name = "license_plate")
     private String licensePlate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "driver_id")
-    Driver driver;
+    private Driver driver;
 
-    public Vehicle(String model, String licensePlate) {
+    public Vehicle(String model, String licensePlate, Driver driver) {
         this.model = model;
         this.licensePlate = licensePlate;
+        this.driver = driver;
     }
 
 }
