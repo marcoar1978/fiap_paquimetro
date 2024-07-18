@@ -1,5 +1,6 @@
 package br.com.fiap.parkingmeter.parking.application.services;
 
+import br.com.fiap.parkingmeter.configuration.services.ConfigurationService;
 import br.com.fiap.parkingmeter.driver.domain.model.Driver;
 import br.com.fiap.parkingmeter.driver.domain.model.Vehicle;
 import br.com.fiap.parkingmeter.driver.domain.repositories.DriverRepository;
@@ -22,18 +23,19 @@ public class ParkingServiceImpl implements ParkingService {
     private final ParkingRepository repository;
     private final DriverRepository driverRepository;
     private final VehicleRepository vehicleRepository;
-
     private final PaymentGatewayService paymentService;
-
-    private final Double VALOR_POR_HORA = 2.0;
+    private ConfigurationService configurationService;
+    private final Double ratePerHour;
 
 
     public ParkingServiceImpl(ParkingRepository repository, DriverRepository driverRepository,
-                              VehicleRepository vehicleRepository, PaymentGatewayService paymentService) {
+                              VehicleRepository vehicleRepository, PaymentGatewayService paymentService,
+                              ConfigurationService configurationService) {
         this.repository = repository;
         this.driverRepository = driverRepository;
         this.vehicleRepository = vehicleRepository;
         this.paymentService = paymentService;
+        this.ratePerHour = configurationService.getConfiguration().getRatePerHour().doubleValue();
     }
 
     @Transactional
@@ -43,7 +45,7 @@ public class ParkingServiceImpl implements ParkingService {
 
         Parking parking = new Parking(dto.getType(),
                 dto.getTime(),
-                VALOR_POR_HORA,
+                ratePerHour,
                 driver,
                 vehicle);
 
@@ -57,7 +59,7 @@ public class ParkingServiceImpl implements ParkingService {
     @Transactional
     public Parking closeParking(UUID parkingId) {
         Parking parking = this.repository.findById(parkingId).orElseThrow(() -> new RuntimeException("Parking not found"));
-        parking.close(VALOR_POR_HORA);
+        parking.close(ratePerHour);
 
         payParking(parking);
 
