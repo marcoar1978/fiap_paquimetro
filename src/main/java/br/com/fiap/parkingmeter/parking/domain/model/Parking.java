@@ -69,8 +69,19 @@ public class Parking {
 
     public void close(Double hourValue) {
         this.endTime = LocalDateTime.now();
-        Long hours = ChronoUnit.HOURS.between(this.startTime, this.endTime);
-        this.value = hours * hourValue;
+
+        if(this.type.equals(ParkingType.POS)) {
+            Long hours = ChronoUnit.HOURS.between(this.startTime, this.endTime);
+
+            // Check if there's any fraction of an hour
+            if (this.startTime.until(this.endTime, ChronoUnit.MINUTES) % 60 != 0) {
+                hours++;
+            }
+
+            if(hours == 0) hours = 1L;
+
+            this.value = hours * hourValue;
+        }
     }
 
     public void confirmPayment(String paymentAuth) {
