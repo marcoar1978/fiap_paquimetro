@@ -37,6 +37,9 @@ public class TicketPreDTO {
         this.driver = new DriverDto(parking.getDriver());
         this.licensePlate = parking.getVehicle().getLicensePlate();
         this.value = parking.getValue();
+        //status
+        //forma de pagamento
+
 
 
     }

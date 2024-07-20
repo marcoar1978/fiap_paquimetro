@@ -38,13 +38,13 @@ public class ParkingServiceImpl implements ParkingService {
 
     @Transactional
     public Parking registerParking(RegisterParkingDto dto) {
-        Driver driver = this.driverRepository.findById(dto.getDriverId()).orElseThrow(() -> new RuntimeException("Driver not found"));
-        Vehicle vehicle = this.vehicleRepository.findById(dto.getVehicleId()).orElseThrow(() -> new RuntimeException("Vehicle not found"));
+        //Driver driver = this.driverRepository.findById(dto.getDriverId()).orElseThrow(() -> new RuntimeException("Driver not found"));
+        Vehicle vehicle = this.vehicleRepository.findByDriverIdAndId(dto.getDriverId(), dto.getVehicleId()).orElseThrow(() -> new RuntimeException("Vehicle not found"));
 
         Parking parking = new Parking(dto.getType(),
                 dto.getTime(),
                 VALOR_POR_HORA,
-                driver,
+                vehicle.getDriver(),
                 vehicle);
 
         if (parking.getType() == ParkingType.PRE && parking.getPaymentMethod() != PaymentMethod.PIX) {
