@@ -14,8 +14,8 @@ import java.time.LocalDateTime;
 public class RegisterParkingDto {
 
     private ParkingType type;
-    @Min(value=0, message = "Não pode inserir quantidade de horas negativas" )
-    @Max(value=480, message = "Limite é de 8 horas")
+    @Min(value=0, message = "Can not enter a negative number of hours." )
+    @Max(value=8, message = "The limit is 8 hours.")
     private Long time;
     private Long driverId;
     private Long vehicleId;
