@@ -14,7 +14,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
   springapp:
-    build: .
+    image: eduardodsaraujo/fiap_paquimetro-springapp
     container_name: spring_parkingmeter
     ports:
       - "8080:8080"
