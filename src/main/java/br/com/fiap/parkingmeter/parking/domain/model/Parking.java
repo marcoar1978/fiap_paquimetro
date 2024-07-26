@@ -2,6 +2,7 @@ package br.com.fiap.parkingmeter.parking.domain.model;
 
 import br.com.fiap.parkingmeter.driver.domain.model.Driver;
 import br.com.fiap.parkingmeter.driver.domain.model.Vehicle;
+import br.com.fiap.parkingmeter.shared.exception.ParkingException;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -55,12 +56,17 @@ public class Parking {
         this.paymentMethod = driver.getPaymentMethod();
 
         if (this.type == ParkingType.PRE) {
-            this.endTime = this.startTime.plusHours(time);
-            this.value = time * hourValue;
+
             this.status = ParkingStatus.PENDENT_PAYMENT;
+            if(time == null){
+                throw new ParkingException("TIme is mandatory ");
+            } else {
+                this.endTime = this.startTime.plusHours(time);
+                this.value = time * hourValue;
+            }
         } else {
             if (this.driver.getPaymentMethod() == PaymentMethod.PIX) {
-                throw new RuntimeException("Pix is not allowed for POS mode");
+                throw new ParkingException("Pix is not allowed for POS mode");
             }
             this.endTime = this.startTime.plusHours(1);
             this.status = ParkingStatus.STARTED;

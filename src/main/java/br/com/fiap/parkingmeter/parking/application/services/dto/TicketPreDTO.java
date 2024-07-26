@@ -5,6 +5,7 @@ import br.com.fiap.parkingmeter.driver.domain.model.Vehicle;
 import br.com.fiap.parkingmeter.parking.domain.model.Parking;
 import br.com.fiap.parkingmeter.parking.domain.model.ParkingStatus;
 import br.com.fiap.parkingmeter.parking.domain.model.ParkingType;
+import br.com.fiap.parkingmeter.parking.domain.model.PaymentMethod;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -24,9 +25,15 @@ public class TicketPreDTO {
 
     private LocalDateTime endTime;
 
-    private DriverDto driver;
+    private String name;
+
+    private String cpf;
+
+    private String model;
 
     private String licensePlate;
+
+    private PaymentMethod paymentMethod;
 
     private Double value;
 
@@ -37,7 +44,10 @@ public class TicketPreDTO {
         this.type = parking.getType();
         this.startTime = parking.getStartTime();
         this.endTime = parking.getEndTime();
-        this.driver = new DriverDto(parking.getDriver());
+        this.name = parking.getDriver().getName();
+        this.cpf = parking.getDriver().getCpf();
+        this.paymentMethod = parking.getDriver().getPaymentMethod();
+        this.model = parking.getVehicle().getModel();
         this.licensePlate = parking.getVehicle().getLicensePlate();
         this.value = parking.getValue();
 
