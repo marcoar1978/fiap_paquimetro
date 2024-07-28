@@ -73,6 +73,10 @@ public class Parking {
         }
     }
 
+    public void plusHour(){
+        this.endTime = this.endTime.plusHours(1);
+    }
+
     public void close(Double hourValue) {
         this.endTime = LocalDateTime.now();
 

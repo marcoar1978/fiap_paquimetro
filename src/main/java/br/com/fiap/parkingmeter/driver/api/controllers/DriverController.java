@@ -8,6 +8,8 @@ import br.com.fiap.parkingmeter.driver.application.services.dto.VehicleDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,15 +25,17 @@ public class DriverController {
 
     @PostMapping
     @Operation(summary = "Create a new driver", description = "Creates a new driver with the given details.")
-    public DriverDto createDriver(@RequestBody @Valid SaveDriverDto dto) {
-        return new DriverDto(driverService.createDriver(dto));
+    public ResponseEntity<DriverDto> createDriver(@RequestBody @Valid SaveDriverDto dto) {
+        var ret = driverService.createDriver(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(new DriverDto(ret));
     }
 
     @PutMapping("/{driverId}")
     @Operation(summary = "Update an existing driver", description = "Updates the details of an existing driver.")
-    public DriverDto updateDriver(@PathVariable long driverId,
-                                  @RequestBody @Valid SaveDriverDto dto) {
-        return new DriverDto(driverService.updateDriver(driverId, dto));
+    public ResponseEntity<DriverDto> updateDriver(@PathVariable long driverId,
+                                                  @RequestBody @Valid SaveDriverDto dto) {
+        var ret = driverService.updateDriver(driverId, dto);
+        return ResponseEntity.ok(new DriverDto(ret));
     }
 
     @DeleteMapping("/{driverId}")
@@ -42,15 +46,17 @@ public class DriverController {
 
     @GetMapping("/{driverId}")
     @Operation(summary = "Find driver by ID", description = "Finds and returns the driver with the given ID.")
-    public DriverDto findById(@PathVariable long driverId) {
-        return new DriverDto(driverService.findById(driverId));
+    public ResponseEntity<DriverDto> findById(@PathVariable long driverId) {
+        var ret = driverService.findById(driverId);
+        return ResponseEntity.ok(new DriverDto(ret));
     }
 
     @PostMapping("/{driverId}/vehicle")
     @Operation(summary = "Add a vehicle to a driver", description = "Adds a vehicle to the driver with the given ID.")
-    public VehicleDto addVehicle(@PathVariable long driverId,
-                                 @RequestBody @Valid CreateVehicleDto dto) {
-        return new VehicleDto(driverService.addVehicle(driverId, dto));
+    public ResponseEntity<VehicleDto> addVehicle(@PathVariable long driverId,
+                                                 @RequestBody @Valid CreateVehicleDto dto) {
+        var ret = driverService.addVehicle(driverId, dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(new VehicleDto(ret));
     }
 
     @DeleteMapping("/{driverId}/vehicle/{vehicleId}")
